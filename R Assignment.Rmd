@@ -1,0 +1,225 @@
+---
+title: "R Assignment"
+author: "Team 7"
+date: "2023-06-11"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+## Including Plots
+
+```{r pressure, echo=FALSE}
+```
+
+#code needed to prind output in console
+```{r, echo=TRUE, results='show'}
+
+# Load the airquality dataset
+data(airquality)
+
+# Print the structure of the dataset
+str(airquality)
+
+# List the variables in the dataset
+variables <- names(airquality)
+print(variables)
+
+# Print the top 15 rows of the dataset
+head(airquality, 15)
+
+# Define a user-defined function using a variable from the dataset
+customFunction <- function(temp) {
+  if (temp > 80) {
+    return("Hot")
+  } else if (temp > 60) {
+    return("Moderate")
+  } else {
+    return("Cool")
+  }
+}
+
+# Example usage of the user-defined function
+temperature <- airquality$Temp[1]  # Using the "Temp" variable from the dataset
+result <- customFunction(temperature)
+print(result)
+
+library(datasets)
+data(airquality)
+View(airquality)
+# Load the datasets package
+library(datasets)
+
+# Load the airquality dataset
+data(airquality)
+
+# Filter rows with ozone level above 30
+filtered_data <- airquality[airquality$Ozone > 30, ]
+
+# View the filtered dataset
+head(filtered_data)
+View(airquality)
+View(filtered_data)
+
+# Load the datasets package
+library(datasets)
+
+# Load the airquality dataset
+data(airquality)
+
+# Select the dependent and independent variables
+dependent_var <- airquality$Ozone
+independent_vars <- airquality[, c("Solar.R", "Wind", "Temp", "Month")]
+
+# Create a new data frame by joining the variables
+new_df <- cbind(dependent_var, independent_vars)
+
+# View the new data frame
+head(new_df)
+View(independent_vars)
+View(new_df)
+View(new_df)
+View(independent_vars)
+View(new_df)
+
+# Load the datasets package
+library(datasets)
+
+# Print the dataset or any desired information
+print(airquality)
+clean_airquality <- na.omit(airquality)
+
+# Remove missing values from the airquality dataset
+clean_airquality <- na.omit(airquality)
+
+# Identify duplicate rows
+duplicated_rows <- duplicated(airquality)
+
+# Print the duplicate rows
+duplicate_data <- airquality[duplicated_rows, ]
+print(duplicate_data)
+
+# Remove duplicate rows
+clean_airquality <- unique(airquality)
+print(clean_airquality)
+
+# Load the required package
+library(dplyr)
+reordered_airquality <- airquality %>% arrange(desc(Ozone))
+
+# Print the reordered dataset
+print(reordered_airquality)
+
+# Rename some column names in airquality dataset
+names(airquality)[names(airquality)=="Temp"]<-"Temperature"
+names(airquality)[names(airquality)=="Wind"]<-"Wind Level"
+
+# Check airquality data set column names
+colnames(airquality)
+
+
+# Add a new variable by multiplying an existing column by 5
+airquality$Temp_Double <- airquality$Temp * 5
+# Print the updated data frame
+print(airquality)
+
+# Set a seed for reproducibility
+set.seed(123)
+
+# Create a training set using a random number generator
+train_indices <- sample(1:nrow(airquality), size = 100, replace = FALSE)
+training_set <- airquality[train_indices, ]
+
+# Print the training set
+print(training_set)
+
+# display airquality dataset statistics summary
+summary(airquality)
+
+# Calculate the mean
+mean_value <- mean(airquality$Ozone)
+
+# Print summary of the airquality dataset
+summary(airquality)
+
+# Extract the "Ozone" variable from the airquality dataset
+ozone <- airquality$Ozone
+
+# Calculate the mean
+mean_value <- mean(ozone, na.rm = TRUE)
+
+# Calculate the median
+median_value <- median(ozone, na.rm = TRUE)
+
+# Calculate the mode
+mode_value <- as.numeric(names(which.max(table(ozone))))
+
+# Calculate the range
+range_value <- range(ozone, na.rm = TRUE)
+
+# Print the mean, median, mode, and range for Ozone
+cat("Mean:", mean_value, "\n")
+cat("Median:", median_value, "\n")
+cat("Mode:", mode_value, "\n")
+cat("Range:", range_value[2] - range_value[1], "\n")
+
+```{r}
+options(repos = "https://cloud.r-project.org")
+
+install.packages("ggpubr")
+
+library(ggplot2)
+library(ggpubr)
+#Plot a scatter plot for any 2 variables in your dataset
+# Load the airquality dataset
+data(airquality)
+
+# Generate the scatter plot
+ScatterPlot<-ggplot(data = airquality,aes(x = Temp,y = Wind,col = factor(Ozone)))+geom_point()
+
+# Print the scatter plot
+print(ScatterPlot)
+
+```
+
+```{r}
+# Plot a bar plot for any 2 variables in your dataset
+## Barplot Version 1 Factor Ozone
+BarplotV1<-ggplot(data = airquality,aes(x = Month,y=Day, fill = factor(Ozone)))+geom_bar(stat="identity",position=position_dodge())+theme_minimal()
+
+## Barplot Version 1 Factor Wind
+BarplotV2<-ggplot(data = airquality,aes(x = Month,y=Day, fill = factor(Wind)))+
+  geom_bar(stat="identity", 
+  position=position_dodge())+theme_minimal()
+```
+```{r show_figure1, fig.width = 9, fig.height = 5}
+BarplotV1
+BarplotV2
+```
+
+```{r}
+# Find the correlation between any 2 variables by applying least square linear regression model
+ScatterModel<-ggscatter(airquality, x = "Wind", y = "Temp",  
+  add = "reg.line", conf.int = TRUE,cor.coef = TRUE, 
+  cor.method = "pearson", xlab = "Wind", ylab = "Temperature")
+y<-airquality[,"Temp"]
+x<-airquality[,"Wind"]
+xycorr<- cor(y,x, method="pearson") 
+head(xycorr)
+```
+```{r show_figure2, fig.width = 6, fig.height = 5}
+ScatterModel
+```
+
+
+Link to the Github Repository 
+
+https://github.com/Alisam9/Gp7
+
+
